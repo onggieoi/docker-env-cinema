@@ -1,2 +1,7 @@
 .env
 /postgres
+/dbserver
+/partition1
+/partition2
+/partition3
+

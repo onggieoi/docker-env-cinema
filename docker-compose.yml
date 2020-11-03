@@ -1,9 +1,9 @@
 version: '3'
 services:
     #Database Service
-    postgres:
+    dbserver:
         image: postgres
-        container_name: postgres
+        container_name: dbserver
         restart: always
         environment:
             POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
@@ -12,9 +12,63 @@ services:
             POSTGRES_DB: ${POSTGRES_DB}
             TZ: Asia/Ho_Chi_Minh
         volumes:
-            - ./postgres/data:/var/lib/postgresql/data/pgdata
+            - ./dbserver/data:/var/lib/postgresql/data/pgdata
         ports: 
-            - ${POSTGRES_PORT}:5432
+            - ${POSTGRES_PORT_SERVER}:5432
+        networks:
+            - app-network
+
+    #Database Service
+    partition1:
+        image: postgres
+        container_name: partition1
+        restart: always
+        environment:
+            POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+            POSTGRES_USER: ${POSTGRES_USER}
+            PGDATA: /var/lib/postgresql/data/pgdata
+            POSTGRES_DB: ${POSTGRES_DB_PARTITION1}
+            TZ: Asia/Ho_Chi_Minh
+        volumes:
+            - ./partition1/data:/var/lib/postgresql/data/pgdata
+        ports: 
+            - ${POSTGRES_PORT_PARTITION1}:5432
+        networks:
+            - app-network
+
+    #Database Service
+    partition2:
+        image: postgres
+        container_name: partition2
+        restart: always
+        environment:
+            POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+            POSTGRES_USER: ${POSTGRES_USER}
+            PGDATA: /var/lib/postgresql/data/pgdata
+            POSTGRES_DB: ${POSTGRES_DB_PARTITION2}
+            TZ: Asia/Ho_Chi_Minh
+        volumes:
+            - ./partition2/data:/var/lib/postgresql/data/pgdata
+        ports: 
+            - ${POSTGRES_PORT_PARTITION2}:5432
+        networks:
+            - app-network
+
+    #Database Service
+    partition3:
+        image: postgres
+        container_name: partition3
+        restart: always
+        environment:
+            POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+            POSTGRES_USER: ${POSTGRES_USER}
+            PGDATA: /var/lib/postgresql/data/pgdata
+            POSTGRES_DB: ${POSTGRES_DB_PARTITION3}
+            TZ: Asia/Ho_Chi_Minh
+        volumes:
+            - ./partition3/data:/var/lib/postgresql/data/pgdata
+        ports: 
+            - ${POSTGRES_PORT_PARTITION3}:5432
         networks:
             - app-network
     
