@@ -80,13 +80,13 @@ services:
             - app-network
         ports: 
             - ${CACHE_PORT}:6379
-        restart: "on-failure"
+        restart: always
 
 #Docker Networks
 networks:
     app-network:
-      driver: bridge
+        driver: bridge
 #Volumes
 volumes:
     dbdata:
-      driver: local
+        driver: local
